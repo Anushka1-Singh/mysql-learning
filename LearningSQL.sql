@@ -27,3 +27,85 @@ insert into user ( id, age, name, email ) values (10, 20, 'random', 'bob123@gmai
 select id, name, email from user;
 select * from user; 
 select distinct age from user;
+
+select * from user where followers >= 200;
+select name, followers from user where followers >= 200;
+select name, followers from user where age >= 16;
+select name, age from user where age + 1 = 16;
+select name, age, followers from user where age > 15 and followers>200;
+select name, age, followers from user where age > 15 or followers>200;
+select name, age, followers from user where age between 15 and 17;
+select name, email, followers from user where email in ('donald@gmail.com', 'bob@123gmail.com', 'abc@gmail.com');
+
+insert into user(id, age, name, email, followers, follwing) values 
+(5,14, 'eve', 'eve@yahoo.in', 400, 15),
+(6,16, 'farah', 'farah@gmail.com', 1000, 1000);
+select name, followers, email from user where age in(14, 16);
+
+select name, age, email from user limit 2;
+select name, age, email from user where age>14 limit 2;
+select name, age, followers from user order by followers asc;
+select name, age, followers from user order by followers desc;
+select name, age, followers from user order by followers;
+
+#aggregate function
+select max(followers) from user;
+select max(age) from user;
+select count(age) from user where age=14;
+select min(age) from user;
+select avg(age) from user;
+select sum(followers) from user;
+
+#groupby clause
+select count(id) from user group by age;
+select  age,count(id) from user group by age;
+select  age from user group by age;
+select  age, max(followers) from user group by age;
+
+#having clause is used when we want to apply any condition after grouping (similar to where because applies conditon)
+select age, max(followers) from user group by age having max(followers)>200;
+select age, max(followers) from user group by age having max(followers)>200 order by age desc;
+
+#table queries (update), to update existing rows
+update user set followers = 600 where age =16;
+set sql_safe_updates =0;
+select * from user;
+
+#table queries (delete), to delete existing rows
+delete from user where age =14; 
+select * from user;
+
+# table queries 
+# alter ( to change the schema(add column, drop column, rename table, change column(rename), modify column(modify datatype/constraint) )
+alter table user add column city varchar(25) default 'delhi';
+select *from user;
+alter table user drop column age;
+select * from user;
+alter table user rename to instaUser;
+select * from instaUser;
+alter table instaUser rename to user;
+alter table user change column followers subs int default 0;
+select * from user;
+insert into user (id, name, email, follwing) values (7, 'gemini', 'gem@yahoo.in', 120);
+alter table user modify subs int default 15;
+select * from user;
+
+# table queries (truncate, to delete table's data)
+select * from post;
+drop table post;
+select * from user;
+truncate table user; 
+select * from user;
+
+
+
+
+
+
+
+
+
+
+
+
+
