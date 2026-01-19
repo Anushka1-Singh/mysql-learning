@@ -98,6 +98,48 @@ truncate table user;
 select * from user;
 
 
+# practise questions
+create database if not exists college; 
+use college;
+create table teacher(id int primary key, name varchar(50), subject varchar(50), salary int);
+insert into teacher (id, name, subject, salary) values 
+(23, 'ajay', 'math', 50000),
+(47, 'bharat', 'english', 60000),
+(18, 'chetan', 'chemistry', 45000),
+(9, 'divya', 'physics', 75000);
+
+select * from teacher;
+select * from teacher where salary>55000;
+alter table teacher change column salary ctc int; 
+update teacher set ctc = ctc * (125/100);
+select * from teacher;
+alter table teacher add column city varchar(50) default 'gurgaon';
+select * from teacher;
+alter table teacher drop column ctc; 
+select * from teacher;
+
+
+create table student ( rollno int primary key, name varchar(50), city varchar(50), marks int);
+insert into student (rollno, name, city, marks) values
+(110, 'adam', 'delhi', 76),
+(108, 'bob', 'mumbai', 65),
+(124, 'casey', 'pune', 94),
+(112, 'duke', 'pune', 80);
+select * from student;
+select * from student where marks>75;
+select distinct city from student;
+select city from student group by city;
+select city,max(marks) from student group by city;
+select avg(marks) from student;
+alter table student add column grade varchar(2);
+select *from student;
+update student set grade ='o' where marks >= 80;
+update student set grade ='a' where marks >= 70 and marks<80;
+update student set grade ='b' where marks >= 60 and marks<70;
+select *from student;
+
+# bye bye :( 19January,2026)
+
 
 
 
