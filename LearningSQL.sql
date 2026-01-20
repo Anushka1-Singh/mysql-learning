@@ -91,5 +91,5 @@ select * from customers cross join orders;
 -- self join ( it is a regular join but the table is jined with itself)
 select * from customers as A join customers as B on A.customer_id = B.customer_id;
 
--- excusive joins (left exclusive and right exclusive join)
+-- excusive joins (left exclusive and right exclusive join).
 
