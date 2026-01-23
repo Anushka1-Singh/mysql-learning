@@ -92,4 +92,64 @@ select * from customers cross join orders;
 select * from customers as A join customers as B on A.customer_id = B.customer_id;
 
 -- excusive joins (left exclusive and right exclusive join).
+-- left exclusive join
+select * from customers as A
+left join orders as B on A.customer_id = B.customer_id
+where B.customer_id is null; 
+-- right exclusive join
+select * from customers as A
+right join orders as B on A.customer_id = B.customer_id
+where A.customer_id is null; 
+
+-- sub-queries (a sub-queery or inner-query or nested-query is a query within another sql query.
+-- it invloves two select statements.
+-- with where
+select * from orders 
+where amount>(select avg(amount) from orders);
+-- with select
+select name,
+(select count(*) from orders o where o.customer_id=c.customer_id)as order_count from customers c;
+-- with from 
+select summary.customer_id, summary.avg_amount from
+( select customer_id, avg(amount) as avg_amount from orders group by customer_id ) as summary;
+
+-- views in sql (a view is a virtual table based on the result-set of an sql statement).
+-- a view always shows up to data .The database engine recreates the view,every time a user queries it.
+create view view1 as select customer_id , name from customers;
+select * from view1;
+select * from view1 where name='alice';
+create view view2 as select c.customer_id, c.name, o.order_id from customers c inner join
+orders o on c.customer_id = o.customer_id;
+select * from view2;
+drop view view1;
+ 
+-- index in sql (indexes are special databases objects that make data retrieval faster.)
+create table account(account_id int primary key, name varchar(50), balance decimal(10,2), branch varchar(50));
+insert into account values 
+(1,'adam', 500.00, 'mumbai'),
+(2,'bob', 300.00, 'delhi'),
+(3, 'charlie', 700.00, 'banglore'),
+(4, 'david', 1000.00, 'noida');
+select * from account;
+
+create index idx_branch on account(branch);
+show index from accounts;
+
+
+-- stored procedures( predefined set of sql statements that you can save in the database 
+-- and execute whenever needed) more like functions/procedures
+delimiter $$
+create procedure check_balance(IN acc_id int, out bal decimal(10,2))
+begin 
+select balance into bal from account where account_id = acc_id;
+end $$
+delimiter ;
+call check_balance(2, @balance);
+select @balance;
+drop procedure if exists check_balance 
+-- @balance(@variable) : used to capture output value parameter , read using select @variable
+-- delimiter : normally sql ends a statement with ; semicolon but in stored procedure ,we write many 
+-- sql statements insie one block - so delimiter like $$ avoids confusion , it tells sql procedure is not
+-- finished yet , after procedure creation , we reset delimiter back to semicolon; 
+
 
