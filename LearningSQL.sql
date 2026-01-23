@@ -150,6 +150,6 @@ drop procedure if exists check_balance
 -- @balance(@variable) : used to capture output value parameter , read using select @variable
 -- delimiter : normally sql ends a statement with ; semicolon but in stored procedure ,we write many 
 -- sql statements insie one block - so delimiter like $$ avoids confusion , it tells sql procedure is not
--- finished yet , after procedure creation , we reset delimiter back to semicolon; 
+-- finished yet , after procedure creation , we reset delimiter back to semicolon; .
 
 
